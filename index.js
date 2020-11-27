@@ -20,6 +20,9 @@ app.get("/", (req, res) => {
   res.send("getting root!");
 });
 
+const discountControllers = require("./controllers");
+app.use("/discount", discountControllers);
+
 app.listen(process.env.PORT || 5000, () => {
   console.log(`app is listening to port ${process.env.PORT || 5000}`);
 });
