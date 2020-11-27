@@ -10,7 +10,7 @@ const getCode = (Discount) => (req, res) => {
         return res.status(410).json({ message: "code expired!" });
       }
 
-      return res.json({ code });
+      return res.json({ code: discount.code });
     })
     .catch(() =>
       res
