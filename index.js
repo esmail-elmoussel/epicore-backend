@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const socket = require("socket.io");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -28,6 +29,13 @@ app.get("/", (req, res) => {
 const discountControllers = require("./controllers");
 app.use("/discount", discountControllers);
 
-app.listen(process.env.PORT || 5000, () => {
+const server = app.listen(process.env.PORT || 5000, () => {
   console.log(`app is listening to port ${process.env.PORT || 5000}`);
+});
+
+const io = socket(server);
+io.on("connection", (socket) => {
+  console.log("made socket connection", socket.id);
+
+  io.sockets.emit("codeVerification", { message: "test socket" });
 });
