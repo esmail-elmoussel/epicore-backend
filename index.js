@@ -35,10 +35,11 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 const io = socket(server, {
   cors: {
-    origin: "https://esmail99.github.io/epicore-frontend/",
+    origin: "https://esmail99.github.io",
     methods: ["GET", "POST"],
   },
 });
+
 io.on("connection", (socket) => {
   console.log("made socket connection", socket.id);
 
