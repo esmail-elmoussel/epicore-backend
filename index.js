@@ -37,5 +37,7 @@ const io = socket(server);
 io.on("connection", (socket) => {
   console.log("made socket connection", socket.id);
 
-  io.sockets.emit("codeVerification", { message: "test socket" });
+  socket.on("codeVerifiedSuccessfully", () => {
+    io.sockets.emit("codeVerifiedSuccessfully", { message: "success" });
+  });
 });
