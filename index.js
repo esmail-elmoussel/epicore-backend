@@ -33,7 +33,12 @@ const server = app.listen(process.env.PORT || 5000, () => {
   console.log(`app is listening to port ${process.env.PORT || 5000}`);
 });
 
-const io = socket(server);
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 io.on("connection", (socket) => {
   console.log("made socket connection", socket.id);
 
