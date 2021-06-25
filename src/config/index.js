@@ -12,4 +12,5 @@ module.exports = {
   PORT: process.env.PORT || 8000,
   DATABASE_URL: process.env.DATABASE_URL,
   SOCKET_URL: process.env.SOCKET_URL,
+  AUTH_PASSWORD: process.env.AUTH_PASSWORD,
 };
