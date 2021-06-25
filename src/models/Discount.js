@@ -8,7 +8,7 @@ const discountSchema = new Schema({
     max: [9999, "invalid code!"],
     required: "code is required!",
   },
-  codeExpires: {
+  expirationDate: {
     type: Number,
     required: "code expiration date is required!",
   },
