@@ -6,7 +6,7 @@ const getCode = (Discount) => (req, res) => {
           message: "there is no discounts at the moment!",
         });
       }
-      if (Date.now() > discount.codeExpires) {
+      if (Date.now() > discount.expirationDate) {
         return res.status(410).json({ message: "code expired!" });
       }
 

@@ -13,7 +13,7 @@ const validateCode = (Discount) => (req, res) => {
         return res.status(401).json({ message: "code is not valid!" });
       }
 
-      if (Date.now() > discount.codeExpires) {
+      if (Date.now() > discount.expirationDate) {
         return res.status(410).json({ message: "code expired!" });
       }
 

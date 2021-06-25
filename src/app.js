@@ -1,17 +1,24 @@
-const express = require("express");
+const { ApolloServer } = require("apollo-server");
 const loaders = require("./loaders");
-const initializeSocket = require("./loaders/socket");
-const config = require("./config");
+const typeDefs = require("./schema");
+const resolvers = require("./resolvers");
+const DiscountModal = require("./models/Discount");
+const DiscountsDatasource = require("./datasources/Discounts");
 
 const startServer = async () => {
-  const app = express();
-  await loaders({ app });
+  await loaders();
 
-  const server = app.listen(config.PORT, () => {
-    console.log(`app is listening to port ${config.PORT}`);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: () => ({
+      discounts: new DiscountsDatasource(DiscountModal),
+    }),
   });
 
-  initializeSocket({ server });
+  server.listen().then(({ url }) => {
+    console.log(`Server is running on ${url}`);
+  });
 };
 
 startServer();
