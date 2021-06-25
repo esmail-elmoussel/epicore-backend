@@ -89,7 +89,7 @@ module.exports = class Discounts {
       }));
   };
 
-  validateDiscount = async ({ code }) => {
+  validateDiscount = async ({ code, pubsub }) => {
     return await this.Discount.findOne({ code })
       .then((discount) => {
         if (!discount) {
@@ -105,6 +105,11 @@ module.exports = class Discounts {
             message: "code expired!",
           };
         }
+
+        // puplish to subscribed users that code is accepted
+        pubsub.publish("DISCOUNT_VERIFIED", {
+          discountVerified: true,
+        });
 
         return {
           success: true,

@@ -4,7 +4,7 @@ const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 const DiscountModal = require("./models/Discount");
 const DiscountsDatasource = require("./datasources/Discounts");
-const config = require("./config");
+const { validateToken } = require("./utils");
 
 const startServer = async () => {
   await loaders();
@@ -15,13 +15,16 @@ const startServer = async () => {
     dataSources: () => ({
       discounts: new DiscountsDatasource(DiscountModal),
     }),
-    // context: ({ req }) => {
-    //   const token = req.headers.authorization;
-    //   const authorized = token === config.AUTH_PASSWORD;
-
-    //   // we can validate users here and get there data and role, but since we dont have any users, it's just dummy text password for our server!
-    //   if (!authorized) throw new Error("wehooo!!! It is a private server.");
-    // },
+    subscriptions: {
+      path: "/subscriptions",
+      onConnect: (connectionParams) => {
+        console.log("subscription connected!");
+        validateToken(connectionParams.authorization);
+      },
+    },
+    context: ({ req }) => {
+      if (req) validateToken(req.headers.authorization);
+    },
   });
 
   server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {

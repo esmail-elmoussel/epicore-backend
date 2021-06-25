@@ -1,4 +1,6 @@
-module.exports.paginateList = ({ cursor, pageSize, first, list }) => {
+const config = require("./config");
+
+const paginateList = ({ cursor, pageSize, first, list }) => {
   if (pageSize < 1 || first < 1) return [];
 
   if (first || !cursor) return list.slice(0, first || pageSize); // return first num of elements
@@ -18,3 +20,12 @@ module.exports.paginateList = ({ cursor, pageSize, first, list }) => {
         )
     : list.slice(0, pageSize); // curser not found in list items
 };
+
+const validateToken = (authToken) => {
+  const authorized = authToken === config.AUTH_PASSWORD;
+
+  // we can validate users here and get there data and role, but since we dont have any users, it's just dummy text password for our server!
+  if (!authorized) throw new Error("wehooo!!! It is a private server.");
+};
+
+module.exports = { paginateList, validateToken };

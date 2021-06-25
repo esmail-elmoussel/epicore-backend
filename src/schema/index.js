@@ -25,6 +25,10 @@ const typeDefs = gql`
     createDiscount: GeneralDiscountResponse!
   }
 
+  type Subscription {
+    discountVerified: Boolean! # just return true if the code accepted no notify user
+  }
+
   type PaginatedDiscounts {
     cursor: String
     hasMore: Boolean!
