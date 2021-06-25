@@ -10,8 +10,9 @@ const typeDefs = gql`
   type Query {
     # get all discounts
     discounts(
-      pageSize: Int # The number of results to show
+      pageSize: Int = 2 # The number of results to show
       cursor: String # only return results after this cursor
+      first: Int # first number of elements
     ): PaginatedDiscounts!
 
     # get latest discount
@@ -25,7 +26,7 @@ const typeDefs = gql`
   }
 
   type PaginatedDiscounts {
-    cursor: String!
+    cursor: String
     hasMore: Boolean!
     discounts: [Discount]!
   }

@@ -1,7 +1,7 @@
 module.exports = {
   Query: {
-    discounts: (_, { pageSize, cursor }, { dataSources }) =>
-      dataSources.discounts.getDiscounts({ pageSize, cursor }),
+    discounts: (_, { pageSize, cursor, first }, { dataSources }) =>
+      dataSources.discounts.getDiscounts({ pageSize, cursor, first }),
     discount: (_, __, { dataSources }) =>
       dataSources.discounts.getLatestDiscount(),
     validateDiscount: (_, { code }, { dataSources }) =>

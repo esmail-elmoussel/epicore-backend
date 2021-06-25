@@ -13,13 +13,14 @@ module.exports = class Discounts {
     };
   };
 
-  getDiscounts = async ({ pageSize, cursor }) => {
+  getDiscounts = async ({ pageSize, cursor, first }) => {
     return await this.Discount.find()
       .sort({ _id: -1 })
       .then(async (allDiscounts) => {
         let discounts = await paginateList({
           cursor,
           pageSize,
+          first,
           list: Array.isArray(allDiscounts) ? allDiscounts : [],
         });
 

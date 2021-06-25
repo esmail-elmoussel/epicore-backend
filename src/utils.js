@@ -1,7 +1,7 @@
-module.exports.paginateList = ({ cursor = null, pageSize = 3, list }) => {
-  if (pageSize < 1) return [];
+module.exports.paginateList = ({ cursor, pageSize, first, list }) => {
+  if (pageSize < 1 || first < 1) return [];
 
-  if (!cursor) return list.slice(0, pageSize);
+  if (first || !cursor) return list.slice(0, first || pageSize); // return first num of elements
 
   const cursorIndex = list.findIndex((item) => {
     let itemCursor = item._id && item._id.toString(); // stringify mongodb _id (object type)
