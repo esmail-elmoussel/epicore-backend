@@ -25,7 +25,6 @@ const startServer = async () => {
     context: ({ req }) => {
       if (req) validateToken(req.headers.authorization);
     },
-    introspection: true,
   });
 
   server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
