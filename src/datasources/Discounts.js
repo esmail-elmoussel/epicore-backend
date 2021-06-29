@@ -1,7 +1,9 @@
+const { MongoDataSource } = require("apollo-datasource-mongodb");
 const { paginateList } = require("../utils");
 
-module.exports = class Discounts {
+module.exports = class Discounts extends MongoDataSource {
   constructor(Discount) {
+    super(Discount);
     this.Discount = Discount;
   }
 
